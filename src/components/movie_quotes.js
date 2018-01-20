@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const MovieQuotes = props => {
     return (
         <div>

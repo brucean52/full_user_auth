@@ -6,15 +6,17 @@ import Home from './home';
 import MovieQuotes from './movie_quotes';
 import SignIn from './sign_in';
 import SignUp from './sign_up';
+import auth from '../hoc/auth';
+import redirect from '../hoc/redirect';
 
 const App = () => (
     <div>
         <Nav/>
         <div className="container">
             <Route path="/" exact component={Home}/>
-            <Route path="/movie-quotes" component={MovieQuotes}/>
-            <Route path="/sign-in" component={SignIn}/>
-            <Route path="/sign-up" component={SignUp}/>
+            <Route path="/movie-quotes" component={auth(MovieQuotes)}/>
+            <Route path="/sign-in" component={redirect(SignIn, '/movie-quotes')}/>
+            <Route path="/sign-up" component={redirect(SignUp, '/movie-quotes')}/>
         </div>
     </div>
 );

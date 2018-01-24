@@ -1,10 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../actions';
 
 const Nav = props => {
     const navStyles = {
         padding: '0 10px'
     };
+
+    function renderAuthLinks(){
+        if(props.auth){
+            return(
+                <li>
+                    <Link to="/" onClick={props.logout}>Log Out</Link>
+                </li>
+            )
+        } 
+            return [
+                <li key="0">
+                <Link to="/sign-in">Sign In</Link>
+                </li>,
+                <li key="1">
+                <Link to="/sign-up">Sign Up</Link>
+                </li>
+            ];
+
+    }
 
     return (
         <nav style={navStyles} className="blue darken-4">
@@ -16,15 +37,16 @@ const Nav = props => {
                 <li>
                     <Link to="/movie-quotes">Movie Quotes</Link>
                 </li>
-                <li>
-                    <Link to="/sign-in">Sign In</Link>
-                </li>
-                <li>
-                    <Link to="/sign-up">Sign Up</Link>
-                </li>
+                {renderAuthLinks()}
             </ul>
         </nav>
     );
 }
 
-export default Nav;
+function mapStateToProps(state){
+    return{
+        auth: state.user.auth
+    }
+}
+
+export default connect(mapStateToProps, { logout })(Nav);

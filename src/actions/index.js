@@ -52,7 +52,19 @@ export function getQuote(){
         axios.get(BASE_URL, config)
         .then(resp=>{
             console.log("getQuote response:", resp);
-
+            dispatch({
+                type: types.GET_QUOTE,
+                payload: resp.data.message
+            })
         })
     }
+}
+
+export function logout(){
+    localStorage.removeItem('token');
+    
+    return {
+        type: types.LOG_OUT
+    }
+    
 }
